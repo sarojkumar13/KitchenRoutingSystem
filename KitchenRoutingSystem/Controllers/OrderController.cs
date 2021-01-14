@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using KitchenRoutingSystem.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -12,17 +13,19 @@ namespace KitchenRoutingSystem.Controllers
     public class OrderController : ControllerBase
     {
        
-        private readonly ILogger<OrderController> _logger;
+        private readonly IRoutingToKitchenService _kitchenRoutingService;
 
-        public OrderController(ILogger<OrderController> logger)
+        public OrderController(IRoutingToKitchenService kitchenRoutingService )
         {
-            _logger = logger;
+            _kitchenRoutingService = kitchenRoutingService;
         }
 
         [HttpPost("Order")]
-        public async Task<ActionResult<Order>> ProcessOrder(Order order)
+        public async Task<IActionResult> ProcessOrder(Order order)
         {
-           return new Order();
+            await _kitchenRoutingService.RouteOrder(order);
+
+            return Ok("Order Sent to Kitchen");
         }
     }
 }

@@ -15,9 +15,9 @@ namespace KitchenRoutingSystem
 	enum KitchenType
 	{
 		Fries = 1,
-		Grill = 2,
-		Salad = 3,
-		Drink = 4,
+		Drink = 2,
+		Grill = 3,
+		Salad = 4,
 		Desert = 5
 	};
 }

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using KitchenRoutingSystem.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -26,6 +27,8 @@ namespace KitchenRoutingSystem
         {
             services.AddControllers();
             services.AddSwaggerDocument();
+            services.AddTransient<IMessageService, MessageService>();
+            services.AddTransient<IRoutingToKitchenService, RoutingToKitchenService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
