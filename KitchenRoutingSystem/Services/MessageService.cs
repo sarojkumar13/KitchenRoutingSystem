@@ -1,7 +1,6 @@
 ﻿using Microsoft.Azure.ServiceBus;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using Microsoft.ServiceBus;
 using System;
 using System.Collections.Generic;
 using System.Linq;
