@@ -25,7 +25,7 @@ namespace KitchenRoutingSystem.Controllers
         {
             await _kitchenRoutingService.RouteOrder(order);
 
-            return Ok("Order Sent to Kitchen");
+            return Ok("Order Sent to the Kitchen");
         }
     }
 }

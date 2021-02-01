@@ -14,24 +14,25 @@ namespace KitchenRoutingSystem.Services
 	{
 		private readonly IConfiguration _config;
 		private readonly ILogger<MessageService> _logger;
+		private readonly ITopicClient _client;
 
-		public MessageService(IConfiguration config, ILogger<MessageService> logger)
+		public MessageService(IConfiguration config, ILogger<MessageService> logger, ITopicClient client)
 		{
 			_config = config;
 			_logger = logger;
+			_client = client;
 
 		}
 
-		public async Task SendOrderToKitchenAsync<T>(T order, string topicName, string filter)
+		public async Task SendOrderToKitchenAsync<T>(T order, string filter)
 		{
 			try
 			{
-				var topicClient = new TopicClient(_config.GetConnectionString("AzureServiceBus"), topicName);
 				string orderQueue = JsonSerializer.Serialize(order);
 				Message message = new Message(Encoding.UTF8.GetBytes(orderQueue));
 				message.Label = filter;
 
-				await topicClient.SendAsync(message);
+				await _client.SendAsync(message);
 			}
 
 			catch (Exception e)

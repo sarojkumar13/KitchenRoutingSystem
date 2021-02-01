@@ -6,6 +6,7 @@ using KitchenRoutingSystem.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Azure.ServiceBus;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -29,6 +30,11 @@ namespace KitchenRoutingSystem
             services.AddSwaggerDocument();
             services.AddTransient<IMessageService, MessageService>();
             services.AddTransient<IRoutingToKitchenService, RoutingToKitchenService>();
+            services.AddSingleton<ITopicClient>(serviceProvider => 
+            new TopicClient(connectionString: 
+            Configuration.GetValue<string>("AzureServiceBus:ConnectionString"), 
+            entityPath: Configuration.GetValue<string>("AzureServiceBus:TopicName")));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
